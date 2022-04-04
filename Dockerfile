@@ -1,8 +1,8 @@
-FROM registry.access.redhat.com/ubi8/ubi:8.2
+FROM registry.access.redhat.com/ubi8/ubi:8.4
 
 # Home directories required by acme.sh script.
-ENV OCP_TOOLS_VERSION=4.4
-ENV ACME_VERSION=2.8.6
+ENV OCP_TOOLS_VERSION=4.10
+ENV ACME_VERSION=3.0.2
 
 WORKDIR /scripts
 

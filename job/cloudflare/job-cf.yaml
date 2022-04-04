@@ -1,0 +1,35 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: letsencrypt-certificates-job
+  namespace: letsencrypt-job
+spec:
+  template:
+    spec:
+      containers:
+        - image: quay.io/benswinney-au/oc-acme:latest
+          env:
+            - name: STAGING
+              value: 'false'
+            - name: PATCH_API_SERVER
+              value: 'false'
+          envFrom:
+            - secretRef:
+                name: cloud-dns-credentials-cloudflare
+          command:
+            - /bin/bash
+            - -c
+            - |
+              #!/usr/bin/env bash
+
+              /scripts/cloudflare.sh
+
+              echo "Done!"
+
+          imagePullPolicy: Always
+          name: letsencrypt-certificates-job
+      dnsPolicy: ClusterFirst
+      restartPolicy: Never
+      serviceAccount: letsencrypt-job-sa
+      serviceAccountName: letsencrypt-job-sa
+      terminationGracePeriodSeconds: 30

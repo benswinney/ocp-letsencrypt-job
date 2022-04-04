@@ -7,7 +7,7 @@ spec:
   template:
     spec:
       containers:
-        - image: quay.io/pittar/oc-acme:latest
+        - image: quay.io/benswinney-au/oc-acme:latest
           env:
             - name: STAGING
               value: 'false'
@@ -15,7 +15,7 @@ spec:
               value: 'false'
           envFrom:
             - secretRef:
-                name: cloud-dns-credentials
+                name: cloud-dns-credentials-aws
           command:
             - /bin/bash
             - -c

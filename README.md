@@ -1,12 +1,30 @@
-# OpenShift Let's Encrypt Job (AWS)
+# OpenShift Let's Encrypt Job (AWS & CloudFlare)
 
 A `Job` that runs the Acme.sh script to generate Let's Encrypt certs for the "api" endpoint of your OpenShift cluster, as well as the "apps" wildcard subdomain.
 
-This is only for AWS (Route53) currently.
-
 To run:
-1) Clone this repo and update the "cloud-dns-credentials.yaml" secret to include your AWS secret key and ID (a user with Route53 permissions should do fine).
-2) `oc apply -k job`
+
+Clone this repo and update either the "job/aws/cloud-dns-credentials-aws.yaml" secret for AWS (a user with Route53 permissions should do fine) or "job/cloudflare/cloud-dns-credentials-aws.yaml" for CloudFlare.
+
+Apply the common manifests
+
+```bash
+oc apply -k common
+```
+
+Apply the job related to your DNS provider.
+
+  AWS:
+
+  ```bash
+  oc apply -k job/aws
+  ```
+
+  CloudFlare:
+
+  ```bash
+  oc apply -k job/cloudflare
+  ```
 
 Done!
 
